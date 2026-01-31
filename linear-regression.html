@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>线性回归 - 统计学习中心</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-graph-up me-2"></i>统计学习中心
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">首页</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown">
+                            算法学习
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item active" href="linear-regression.html">线性回归</a></li>
+                            <li><a class="dropdown-item" href="logistic-regression.html">逻辑回归</a></li>
+                            <li><a class="dropdown-item" href="chi-square.html">X平方检验</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="comparison.html">算法对比</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="practice.html">实践练习</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="algorithm-header linear-gradient">
+        <div class="container text-center text-white">
+            <div class="row align-items-center">
+                <div class="col-lg-8 mx-auto">
+                    <h1 class="display-4 fw-bold mb-4">
+                        <i class="bi bi-graph-up-arrow me-3"></i>线性回归
+                    </h1>
+                    <p class="lead mb-4">
+                        探索变量间的线性关系，预测连续数值的强大工具
+                    </p>
+                    <div class="d-flex gap-3 justify-content-center">
+                        <span class="badge bg-white text-primary fs-6">
+                            <i class="bi bi-calculator me-1"></i>数值预测
+                        </span>
+                        <span class="badge bg-white text-primary fs-6">
+                            <i class="bi bi-graph-up me-1"></i>关系分析
+                        </span>
+                        <span class="badge bg-white text-primary fs-6">
+                            <i class="bi bi-lightning me-1"></i>简单易用
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container my-5">
+        <!-- 快速导航 -->
+        <section class="row mb-5">
+            <div class="col-lg-9 mx-auto">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">快速导航</h5>
+                        <nav class="nav nav-pills flex-column flex-md-row">
+                            <a class="nav-link active" href="#overview">基本概念</a>
+                            <a class="nav-link" href="#mathematical">数学原理</a>
+                            <a class="nav-link" href="#applications">应用场景</a>
+                            <a class="nav-link" href="#demo">交互演示</a>
+                            <a class="nav-link" href="#exercise">练习题</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 基本概念 -->
+        <section id="overview" class="row mb-5">
+            <div class="col-lg-8 mx-auto">
+                <div class="mb-4">
+                    <h2 class="h1 fw-bold mb-4">
+                        <i class="bi bi-book me-2 text-primary"></i>什么是线性回归？
+                    </h2>
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle me-2"></i>
+                        <strong>定义：</strong>线性回归是一种统计学方法，用于建立自变量（特征）和因变量（目标）之间的线性关系模型。
+                    </div>
+                </div>
+
+                <div class="row g-4 mb-4">
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="bi bi-bullseye text-primary me-2"></i>目标
+                                </h5>
+                                <p class="card-text">
+                                    预测连续数值输出，理解变量间的定量关系
+                                </p>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>房价预测</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>销售预测</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>温度变化趋势</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="bi bi-lightning text-warning me-2"></i>特点
+                                </h5>
+                                <p class="card-text">
+                                    简单直观，计算效率高，结果易于解释
+                                </p>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>数学基础简单</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>计算速度快</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>模型可解释性强</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-primary">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="bi bi-exclamation-triangle text-warning me-2"></i>重要提醒
+                        </h5>
+                        <p class="card-text">
+                            线性回归假设变量间存在<span class="highlight">线性关系</span>，如果实际关系是非线性的，模型效果会受限。
+                            在使用前需要检查数据的线性关系。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 数学原理 -->
+        <section id="mathematical" class="row mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="h1 fw-bold mb-4">
+                    <i class="bi bi-calculator me-2 text-primary"></i>数学原理
+                </h2>
+
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">一元线性回归公式</h5>
+                        <div class="formula-box">
+                            y = β₀ + β₁x + ε
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-3 text-center">
+                                <strong>y</strong><br>
+                                <small class="text-muted">因变量</small>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <strong>x</strong><br>
+                                <small class="text-muted">自变量</small>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <strong>β₀</strong><br>
+                                <small class="text-muted">截距</small>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <strong>β₁</strong><br>
+                                <small class="text-muted">斜率</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">参数估计</h5>
+                        <p class="card-text">使用最小二乘法估计参数，使残差平方和最小：</p>
+                        <div class="formula-box mb-3">
+                            min Σ(yᵢ - ŷᵢ)²
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="formula-box">
+                                    β₁ = Σ(xᵢ - x̄)(yᵢ - ȳ) / Σ(xᵢ - x̄)²
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="formula-box">
+                                    β₀ = ȳ - β₁x̄
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">模型评估指标</h5>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="text-center p-3 bg-light rounded">
+                                    <h6 class="text-primary">R² 决定系数</h6>
+                                    <p class="mb-0">模型解释方差的比例，0-1之间</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center p-3 bg-light rounded">
+                                    <h6 class="text-primary">MSE 均方误差</h6>
+                                    <p class="mb-0">预测值与真实值的平均平方差</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center p-3 bg-light rounded">
+                                    <h6 class="text-primary">MAE 平均绝对误差</h6>
+                                    <p class="mb-0">预测值与真实值的平均绝对差</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 应用场景 -->
+        <section id="applications" class="row mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="h1 fw-bold mb-4">
+                    <i class="bi bi-diagram-3 me-2 text-primary"></i>应用场景
+                </h2>
+
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="feature-icon me-3" style="font-size: 2rem;">
+                                        <i class="bi bi-house"></i>
+                                    </div>
+                                    <h5 class="card-title mb-0">房地产市场</h5>
+                                </div>
+                                <p class="card-text">
+                                    根据面积、位置、房龄等特征预测房价
+                                </p>
+                                <div class="small text-muted">
+                                    <i class="bi bi-tag me-1"></i>特征：面积、楼层、学区
+                                    <br>
+                                    <i class="bi bi-bullseye me-1"></i>目标：房价（万元）
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="feature-icon me-3" style="font-size: 2rem;">
+                                        <i class="bi bi-graph-up-arrow"></i>
+                                    </div>
+                                    <h5 class="card-title mb-0">商业分析</h5>
+                                </div>
+                                <p class="card-text">
+                                    基于历史数据预测销售趋势和市场需求
+                                </p>
+                                <div class="small text-muted">
+                                    <i class="bi bi-tag me-1"></i>特征：广告投入、季节、促销
+                                    <br>
+                                    <i class="bi bi-bullseye me-1"></i>目标：销售额
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="feature-icon me-3" style="font-size: 2rem;">
+                                        <i class="bi bi-thermometer-half"></i>
+                                    </div>
+                                    <h5 class="card-title mb-0">环境科学</h5>
+                                </div>
+                                <p class="card-text">
+                                    分析污染因子对环境指标的影响
+                                </p>
+                                <div class="small text-muted">
+                                    <i class="bi bi-tag me-1"></i>特征：排放量、风速、湿度
+                                    <br>
+                                    <i class="bi bi-bullseye me-1"></i>目标：空气质量指数
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="feature-icon me-3" style="font-size: 2rem;">
+                                        <i class="bi bi-heart-pulse"></i>
+                                    </div>
+                                    <h5 class="card-title mb-0">医疗健康</h5>
+                                </div>
+                                <p class="card-text">
+                                    基于生理指标预测健康风险和疾病发展
+                                </p>
+                                <div class="small text-muted">
+                                    <i class="bi bi-tag me-1"></i>特征：年龄、血压、体重指数
+                                    <br>
+                                    <i class="bi bi-bullseye me-1"></i>目标：疾病风险评分
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 交互演示 -->
+        <section id="demo" class="row mb-5">
+            <div class="col-lg-10 mx-auto">
+                <h2 class="h1 fw-bold mb-4">
+                    <i class="bi bi-cursor me-2 text-primary"></i>交互演示
+                </h2>
+
+                <div class="card border-0 shadow-sm" id="linear-regression-demo">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">线性回归可视化演示</h5>
+                        <p class="text-muted">
+                            点击按钮添加数据点，然后计算回归线来理解线性回归的工作原理
+                        </p>
+
+                        <div class="row mb-4">
+                            <div class="col-md-8">
+                                <div class="bg-light rounded p-3 text-center">
+                                    <canvas id="regression-canvas" width="600" height="400" class="border rounded bg-white"></canvas>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="control-panel">
+                                    <h6 class="mb-3">控制面板</h6>
+                                    <div class="d-grid gap-2">
+                                        <button id="add-point" class="btn btn-primary">
+                                            <i class="bi bi-plus-circle me-2"></i>添加数据点
+                                        </button>
+                                        <button id="clear-points" class="btn btn-outline-secondary">
+                                            <i class="bi bi-trash me-2"></i>清除所有点
+                                        </button>
+                                        <button id="calculate-regression" class="btn btn-success">
+                                            <i class="bi bi-calculator me-2"></i>计算回归线
+                                        </button>
+                                    </div>
+                                    <div class="mt-3">
+                                        <small class="text-muted">
+                                            数据点数量: <span id="point-count">0</span>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="regression-results">
+                            <!-- 回归结果将显示在这里 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 练习题 -->
+        <section id="exercise" class="row mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="h1 fw-bold mb-4">
+                    <i class="bi bi-pencil-square me-2 text-primary"></i>练习题
+                </h2>
+
+                <div class="exercise-card" data-correct-answer="a">
+                    <h5 class="card-title">题目 1: 线性回归的基本假设</h5>
+                    <p class="card-text">
+                        线性回归模型最重要的假设是什么？
+                    </p>
+                    <div class="answer-option" data-answer="a">
+                        <strong>A.</strong> 变量之间存在线性关系
+                    </div>
+                    <div class="answer-option" data-answer="b">
+                        <strong>B.</strong> 所有数据都服从正态分布
+                    </div>
+                    <div class="answer-option" data-answer="c">
+                        <strong>C.</strong> 数据必须是整数
+                    </div>
+                    <div class="answer-option" data-answer="d">
+                        <strong>D.</strong> 只能有两个变量
+                    </div>
+                    <div class="answer-feedback mt-3" style="display: none;"></div>
+                    <button class="btn btn-primary btn-sm mt-3 check-answer">检查答案</button>
+                </div>
+
+                <div class="exercise-card" data-correct-answer="c">
+                    <h5 class="card-title">题目 2: R² 的含义</h5>
+                    <p class="card-text">
+                        如果线性回归模型的R² = 0.85，这表示什么？
+                    </p>
+                    <div class="answer-option" data-answer="a">
+                        <strong>A.</strong> 模型的预测准确率是85%
+                    </div>
+                    <div class="answer-option" data-answer="b">
+                        <strong>B.</strong> 85%的数据点都在回归线上
+                    </div>
+                    <div class="answer-option" data-answer="c">
+                        <strong>C.</strong> 模型解释了85%的因变量变异
+                    </div>
+                    <div class="answer-option" data-answer="d">
+                        <strong>D.</strong> 模型误差是15%
+                    </div>
+                    <div class="answer-feedback mt-3" style="display: none;"></div>
+                    <button class="btn btn-primary btn-sm mt-3 check-answer">检查答案</button>
+                </div>
+
+                <div class="exercise-card" data-correct-answer="b">
+                    <h5 class="card-title">题目 3: 适用场景</h5>
+                    <p class="card-text">
+                        以下哪种情况最适合使用线性回归？
+                    </p>
+                    <div class="answer-option" data-answer="a">
+                        <strong>A.</strong> 预测邮件是否为垃圾邮件
+                    </div>
+                    <div class="answer-option" data-answer="b">
+                        <strong>B.</strong> 根据学习时间预测考试成绩
+                    </div>
+                    <div class="answer-option" data-answer="c">
+                        <strong>C.</strong> 将新闻文章分类到不同主题
+                    </div>
+                    <div class="answer-option" data-answer="d">
+                        <strong>D.</strong> 判断图片中是否有人脸
+                    </div>
+                    <div class="answer-feedback mt-3" style="display: none;"></div>
+                    <button class="btn btn-primary btn-sm mt-3 check-answer">检查答案</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 学习总结 -->
+        <section class="row mb-5">
+            <div class="col-lg-8 mx-auto">
+                <div class="card bg-primary text-white border-0">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="bi bi-lightbulb me-2"></i>本节要点总结
+                        </h5>
+                        <ul class="mb-0">
+                            <li>线性回归用于建立变量间的线性关系模型</li>
+                            <li>使用最小二乘法估计模型参数</li>
+                            <li>R²是评估模型拟合度的重要指标</li>
+                            <li>适用于连续数值预测问题</li>
+                            <li>需要验证线性关系假设</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 下一步 -->
+        <section class="text-center mb-5">
+            <div class="mb-4">
+                <h3 class="h1 fw-bold mb-3">继续学习</h3>
+                <p class="lead text-muted">你已经掌握了线性回归的基础知识，接下来学习其他统计方法</p>
+            </div>
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+                <a href="logistic-regression.html" class="btn btn-success btn-lg">
+                    <i class="bi bi-toggle-on me-2"></i>学习逻辑回归
+                </a>
+                <a href="chi-square.html" class="btn btn-warning btn-lg">
+                    <i class="bi bi-calculator me-2"></i>学习X平方检验
+                </a>
+                <a href="comparison.html" class="btn btn-outline-primary btn-lg">
+                    <i class="bi bi-columns-gap me-2"></i>算法对比
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>统计学习中心</h5>
+                    <p class="text-muted">让统计学变得简单易懂</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="text-muted mb-0">
+                        <i class="bi bi-github me-2"></i>
+                        开源学习项目
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts.js"></script>
+    <script>
+        // 线性回归Canvas绘制
+        document.addEventListener('DOMContentLoaded', function() {
+            const canvas = document.getElementById('regression-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                const points = [];
+                
+                // 初始化画布
+                function initCanvas() {
+                    ctx.fillStyle = 'white';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    
+                    // 绘制坐标轴
+                    ctx.strokeStyle = '#ddd';
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(50, canvas.height - 50);
+                    ctx.lineTo(canvas.width - 30, canvas.height - 50);
+                    ctx.moveTo(50, canvas.height - 50);
+                    ctx.lineTo(50, 30);
+                    ctx.stroke();
+                }
+                
+                initCanvas();
+                
+                // 添加数据点
+                document.getElementById('add-point').addEventListener('click', function() {
+                    const x = Math.random() * (canvas.width - 100) + 50;
+                    const y = Math.random() * (canvas.height - 100) + 50;
+                    
+                    points.push({x, y});
+                    
+                    // 绘制点
+                    ctx.fillStyle = '#007bff';
+                    ctx.beginPath();
+                    ctx.arc(x, y, 5, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    // 更新计数
+                    document.getElementById('point-count').textContent = points.length;
+                });
+                
+                // 清除点
+                document.getElementById('clear-points').addEventListener('click', function() {
+                    points.length = 0;
+                    initCanvas();
+                    document.getElementById('point-count').textContent = '0';
+                    document.querySelector('.regression-results').innerHTML = '';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

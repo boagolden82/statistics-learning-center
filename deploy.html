@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>部署指南 - 统计学习中心</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 0;
+            margin-top: -50px;
+        }
+        .step-card {
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        .step-number {
+            background: var(--bs-primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+        .success-check {
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-graph-up me-2"></i>统计学习中心
+            </a>
+        </div>
+    </nav>
+
+    <header class="hero-section">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-4">
+                <i class="bi bi-cloud-upload me-3"></i>部署到 Cloudflare Pages
+            </h1>
+            <p class="lead mb-4">
+                将你的统计学习网站发布到互联网，让更多人受益
+            </p>
+        </div>
+    </header>
+
+    <main class="container my-5">
+        <!-- 方法一：Web界面部署 -->
+        <section class="row mb-5">
+            <div class="col-lg-10 mx-auto">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3 class="mb-4">
+                        <i class="bi bi-github me-2 text-dark"></i>
+                        方法一：Web界面部署（推荐初学者）
+                    </h3>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5><i class="bi bi-upload me-2"></i>第一步：上传到GitHub</h5>
+                            <p>将代码上传到GitHub仓库：</p>
+                            <div class="code-block">
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/你的用户名/statistics-learning-center.git
+git push -u origin main
+                            </div>
+                            <div class="alert alert-info">
+                                <i class="bi bi-info-circle me-2"></i>
+                                <strong>提示：</strong>如果没有GitHub账户，需要先注册一个。
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h5><i class="bi bi-cloud me-2"></i>第二步：配置Cloudflare Pages</h5>
+                            <ol class="list-unstyled">
+                                <li><i class="bi bi-check-circle success-check me-2"></i>访问 <a href="https://dash.cloudflare.com/" target="_blank">Cloudflare Dashboard</a></li>
+                                <li><i class="bi bi-check-circle success-check me-2"></i>点击左侧 "Pages" 菜单</li>
+                                <li><i class="bi bi-check-circle success-check me-2"></i>点击 "Create a project"</li>
+                                <li><i class="bi bi-check-circle success-check me-2"></i>选择 "Connect to Git"</li>
+                                <li><i class="bi bi-check-circle success-check me-2"></i>授权GitHub并选择仓库</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h5><i class="bi bi-gear me-2"></i>构建设置配置</h5>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>设置项</th>
+                                    <th>值</th>
+                                </tr>
+                                <tr>
+                                    <td>Framework preset</td>
+                                    <td>None</td>
+                                </tr>
+                                <tr>
+                                    <td>Build command</td>
+                                    <td>（留空）</td>
+                                </tr>
+                                <tr>
+                                    <td>Build output directory</td>
+                                    <td>.</td>
+                                </tr>
+                                <tr>
+                                    <td>Root directory</td>
+                                    <td>/</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <button class="btn btn-primary btn-lg" onclick="window.open('https://dash.cloudflare.com/', '_blank')">
+                            <i class="bi bi-cloud-upload me-2"></i>前往 Cloudflare Pages
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 方法二：命令行部署 -->
+        <section class="row mb-5">
+            <div class="col-lg-10 mx-auto">
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3 class="mb-4">
+                        <i class="bi bi-terminal me-2 text-dark"></i>
+                        方法二：命令行部署（适合开发者）
+                    </h3>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5><i class="bi bi-download me-2"></i>安装 Wrangler</h5>
+                            <div class="code-block">
+# 全局安装 Wrangler CLI
+npm install -g wrangler
+
+# 验证安装
+wrangler --version
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h5><i class="bi bi-box-arrow-in-right me-2"></i>登录 Cloudflare</h5>
+                            <div class="code-block">
+# 登录到你的 Cloudflare 账户
+wrangler login
+
+# 浏览器会自动打开进行授权
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h5><i class="bi bi-upload me-2"></i>部署网站</h5>
+                        <div class="code-block">
+# 在项目目录中运行部署命令
+wrangler pages deploy . --project-name statistics-learning-center
+
+# 首次部署可能需要创建项目
+wrangler pages project create statistics-learning-center
+                            </div>
+                        <div class="alert alert-success">
+                            <i class="bi bi-check-circle me-2"></i>
+                            <strong>成功！</strong>部署完成后，Wrangler会提供访问URL。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 验证部署 -->
+        <section class="row mb-5">
+            <div class="col-lg-10 mx-auto">
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3 class="mb-4">
+                        <i class="bi bi-check2-square me-2 text-success"></i>
+                        验证部署
+                    </h3>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5><i class="bi bi-list-check me-2"></i>功能检查清单</h5>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="check1">
+                                <label class="form-check-label" for="check1">
+                                    网站首页正常加载
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="check2">
+                                <label class="form-check-label" for="check2">
+                                    所有算法页面可以访问
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="check3">
+                                <label class="form-check-label" for="check3">
+                                    交互演示功能正常
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="check4">
+                                <label class="form-check-label" for="check4">
+                                    练习题系统正常工作
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="check5">
+                                <label class="form-check-label" for="check5">
+                                    手机端响应式正常
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h5><i class="bi bi-tools me-2"></i>调试工具</h5>
+                            <div class="list-group">
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    <i class="bi bi-browser-chrome me-2"></i>
+                                    Chrome DevTools
+                                    <small class="text-muted d-block">按F12打开开发者工具</small>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    <i class="bi bi-phone me-2"></i>
+                                    移动端测试
+                                    <small class="text-muted d-block">使用开发者工具的设备模拟器</small>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    <i class="bi bi-speedometer2 me-2"></i>
+                                    性能测试
+                                    <small class="text-muted d-block">Lighthouse性能评分</small>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 自定义域名 -->
+        <section class="row mb-5">
+            <div class="col-lg-10 mx-auto">
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3 class="mb-4">
+                        <i class="bi bi-globe me-2 text-primary"></i>
+                        配置自定义域名（可选）
+                    </h3>
+                    
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle me-2"></i>
+                        如果你有自己的域名，可以将网站绑定到自定义域名。
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5><i class="bi bi-link-45deg me-2"></i>在Cloudflare Pages中配置</h5>
+                            <ol>
+                                <li>进入项目设置页面</li>
+                                <li>点击 "Custom domains"</li>
+                                <li>输入你的域名（如：stats.yourdomain.com）</li>
+                                <li>点击 "Add custom domain"</li>
+                                <li>等待DNS配置完成</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h5><i class="bi bi-database me-2"></i>DNS配置</h5>
+                            <p>Cloudflare会自动配置：</p>
+                            <div class="code-block">
+类型: CNAME
+名称: stats
+目标: your-project.pages.dev
+TTL: Auto
+代理状态: 已代理
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 成功确认 -->
+        <section class="row mb-5">
+            <div class="col-lg-8 mx-auto">
+                <div class="card bg-success text-white border-0">
+                    <div class="card-body text-center">
+                        <h3 class="card-title">
+                            <i class="bi bi-trophy me-2"></i>🎉 部署成功！
+                        </h3>
+                        <p class="card-text">
+                            你的统计学习中心现在已经在线，任何人都可以通过互联网访问！
+                        </p>
+                        <div class="mt-4">
+                            <h5>网站包含：</h5>
+                            <div class="row text-start mt-3">
+                                <div class="col-md-6">
+                                    <ul class="list-unstyled">
+                                        <li><i class="bi bi-check-circle me-2"></i>线性回归完整教程</li>
+                                        <li><i class="bi bi-check-circle me-2"></i>逻辑回归交互演示</li>
+                                        <li><i class="bi bi-check-circle me-2"></i>X平方检验计算器</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <ul class="list-unstyled">
+                                        <li><i class="bi bi-check-circle me-2"></i>算法对比分析</li>
+                                        <li><i class="bi bi-check-circle me-2"></i>15道练习题</li>
+                                        <li><i class="bi bi-check-circle me-2"></i>响应式设计</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <a href="index.html" class="btn btn-light btn-lg me-2">
+                                <i class="bi bi-house me-2"></i>返回网站首页
+                            </a>
+                            <button class="btn btn-outline-light btn-lg" onclick="shareWebsite()">
+                                <i class="bi bi-share me-2"></i>分享网站
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 常见问题 -->
+        <section class="row mb-5">
+            <div class="col-lg-10 mx-auto">
+                <h3 class="mb-4">
+                    <i class="bi bi-question-circle me-2"></i>常见问题
+                </h3>
+                
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                部署后页面显示空白怎么办？
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>可能的原因和解决方法：</p>
+                                <ul>
+                                    <li><strong>文件路径错误</strong>：检查CSS和JS文件路径是否正确</li>
+                                    <li><strong>CSS未加载</strong>：检查Bootstrap CDN链接是否有效</li>
+                                    <li><strong>JavaScript错误</strong>：打开浏览器控制台查看错误信息</li>
+                                    <li><strong>缓存问题</strong>：清除浏览器缓存或使用隐私模式</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                如何更新网站内容？
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>更新网站很简单：</p>
+                                <ol>
+                                    <li>在本地修改文件</li>
+                                    <li>提交更改到GitHub：<code>git add . && git commit -m "Update content" && git push</code></li>
+                                    <li>Cloudflare Pages会自动检测更改并重新部署</li>
+                                    <li>等待1-2分钟后，网站就会更新</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                可以使用自定义域名吗？
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                <p>是的！Cloudflare Pages支持自定义域名：</p>
+                                <ul>
+                                    <li>在项目设置中添加自定义域名</li>
+                                    <li>Cloudflare会自动配置DNS</li>
+                                    <li>提供免费的SSL证书</li>
+                                    <li>支持HTTP/2和现代加密</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>统计学习中心</h5>
+                    <p class="text-muted">让统计学变得简单易懂</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="text-muted mb-0">
+                        <i class="bi bi-github me-2"></i>
+                        开源学习平台
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function shareWebsite() {
+            if (navigator.share) {
+                navigator.share({
+                    title: '统计学习中心',
+                    text: '学习线性回归、逻辑回归和X平方检验的在线平台',
+                    url: window.location.href
+                }).catch(err => console.log('分享失败', err));
+            } else {
+                // 复制链接到剪贴板
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert('链接已复制到剪贴板！');
+                });
+            }
+        }
+    </script>
+</body>
+</html>

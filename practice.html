@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实践练习 - 统计学习中心</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-graph-up me-2"></i>统计学习中心
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">首页</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            算法学习
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="linear-regression.html">线性回归</a></li>
+                            <li><a class="dropdown-item" href="logistic-regression.html">逻辑回归</a></li>
+                            <li><a class="dropdown-item" href="chi-square.html">X平方检验</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="comparison.html">算法对比</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="practice.html">实践练习</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-section text-white">
+        <div class="container text-center">
+            <h1 class="display-4 fw-bold mb-4">
+                <i class="bi bi-pencil-square me-3"></i>实践练习
+            </h1>
+            <p class="lead mb-4">
+                通过实际案例加深理解，巩固所学知识
+            </p>
+            <div class="d-flex gap-3 justify-content-center">
+                <span class="badge bg-white text-primary fs-6">
+                    <i class="bi bi-check-circle me-1"></i>互动练习
+                </span>
+                <span class="badge bg-white text-primary fs-6">
+                    <i class="bi bi-trophy me-1"></i>挑战模式
+                </span>
+                <span class="badge bg-white text-primary fs-6">
+                    <i class="bi bi-graph-up me-1"></i>进度跟踪
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container my-5">
+        <!-- 练习概览 -->
+        <section class="row mb-5">
+            <div class="col-lg-10 mx-auto">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">练习概览</h5>
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <div class="practice-stat">
+                                        <h3 class="text-primary">12</h3>
+                                        <p class="mb-0">总练习题</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <div class="practice-stat">
+                                        <h3 class="text-success" id="completed-count">0</h3>
+                                        <p class="mb-0">已完成</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center">
+                                    <div class="practice-stat">
+                                        <h3 class="text-warning" id="progress-percent">0%</h3>
+                                        <p class="mb-0">完成进度</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="progress mt-4" style="height: 8px;">
+                            <div class="progress-bar" id="progress-bar" style="width: 0%; background: var(--primary-gradient);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 线性回归练习 -->
+        <section class="row mb-5">
+            <div class="col-lg-10 mx-auto">
+                <div class="d-flex align-items-center mb-4">
+                    <i class="bi bi-graph-up-arrow text-primary me-3" style="font-size: 2rem;"></i>
+                    <div>
+                        <h2 class="h1 fw-bold mb-0">线性回归练习</h2>
+                        <p class="text-muted mb-0">检验你对线性回归概念的理解</p>
+                    </div>
+                </div>
+
+                <div class="exercise-card" data-correct-answer="a" data-topic="linear">
+                    <h5 class="card-title">题目 1: 线性回归的基本概念</h5>
+                    <p class="card-text">
+                        在线性回归中，R²值为0.85表示什么含义？
+                    </p>
+                    <div class="answer-option" data-answer="a">
+                        <strong>A.</strong> 模型解释了85%的因变量变异
+                    </div>
+                    <div class="answer-option" data-answer="b">
+                        <strong>B.</strong> 预测准确率是85%
+                    </div>
+                    <div class="answer-option" data-answer="c">
+                        <strong>C.</strong> 85%的数据点在回归线上
+                    </div>
+                    <div class="answer-option" data-answer="d">
+                        <strong>D.</strong> 模型误差是15%
+                    </div>
+                    <div class="answer-feedback mt-3" style="display: none;"></div>
+                    <button class="btn btn-primary btn-sm mt-3 check-answer">检查答案</button>
+                </div>
+
+                <div class="exercise-card" data-correct-answer="c" data-topic="linear">
+                    <h5 class="card-title">题目 2: 最小二乘法</h5>
+                    <p class="card-text">
+                        线性回归使用最小二乘法的目的是什么？
+                    </p>
+                    <div class="answer-option" data-answer="a">
+                        <strong>A.</strong> 最小化预测值的绝对误差
+                    </div>
+                    <div class="answer-option" data-answer="b">
+                        <strong>B.</strong> 最大化相关系数
+                    </div>
+                    <div class="answer-option" data-answer="c">
+                        <strong>C.</strong> 最小化残差平方和
+                    </div>
+                    <div class="answer-option" data-answer="d">
+                        <strong>D.</strong> 最小化模型复杂度
+                    </div>
+                    <div class="answer-feedback mt-3" style="display: none;"></div>
+                    <button class="btn btn-primary btn-sm mt-3 check-answer">检查答案</button>
+                </div>
+
+                <div class="exercise-card" data-correct-answer="b" data-topic="linear">
+                    <h5 class="card-title">题目 3: 应用场景识别</h5>
+                    <p class="card-text">
+                        以下哪种情况最适合使用线性回归？
+                    </p>
+                    <div class="answer-option" data-answer="a">
+                        <strong>A.</strong> 判断邮件是否为垃圾邮件
+                    </div>
+                    <div class="answer-option" data-answer="b">
+                        <strong>B.</strong> 根据房屋面积预测房价
+                    </div>
+                    <div class="answer-option" data-answer="c">
+                        <strong>C.</strong> 分析性别与消费偏好的关系
+                    </div>
+                    <div class="answer-option" data-answer="d">
+                        <strong>D.</strong> 根据症状预测疾病类型
+                    </div>
+                    <div class="answer-feedback mt-3" style="display: none;"></div>
+                    <button class="btn btn-primary btn-sm mt-3 check-answer">检查答案</button>
+                </div>
+
+                <div class="exercise-card" data-correct-answer="d" data-topic="linear">
+                    <h5 class="card-title">题目 4: 回归方程解释</h5>
+                    <p class="card-text">
+                        给定回归方程 y = 2.5 + 0.8x，当x增加1个单位时，y如何变化？
+                    </p>
+                    <div class="answer-option" data-answer="a">
+                        <strong>A.</strong> 增加2.5个单位
+                    </div>
+                    <div class="answer-option" data-answer="b">
+                        <strong>B.</strong> 增加0.8个单位
+                    </div>
+                    <div class="answer-option" data-answer="c">
+                        <strong>C.</strong> 变为原来的1.8倍
+                    </div>
+                    <div class="answer-option" data-answer="d">
+                        <strong>D.</strong> 增加0.8个单位
+                    </div>
+                    <div class="answer-feedback mt-3" style="display: none;"></div>
+                    <button class="btn btn-primary btn-sm mt-3 check-answer">检查答案</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 逻辑回归练习 -->
+        <section class="row mb-5">
+            <div class="col-lg-10 mx-auto">
+                <div class="d-flex align-items-center mb-4">
+                    <i class="bi bi-toggle-on text-success me-3" style="font-size: 2rem;"></i>
+                    <div>
+                        <h2 class="h1 fw-bold mb-0">逻辑回归练习</h2>
+                        <p class="text-muted mb-0">测试你对逻辑回归原理的掌握</p>
+                    </div>
+                </div>
+
+                <div class="exercise-card" data-correct-answer="b" data-topic="logistic">
+                    <h5 class="card-title">题目 5: 逻辑回归的本质</h5>
+                    <p class="card-text">
+                        逻辑回归主要用于解决什么类型的问题？
+                    </p>
+                    <div class="answer-option" data-answer="a">
+                        <strong>A.</strong> 预测连续数值
+                    </div>
+                    <div class="answer-option" data-answer="b">
+                        <strong>B.</strong> 二元分类
+                    </div>
+                    <div class="answer-option" data-answer="c">
+                        <strong>C.</strong> 聚类分析
+                    </div>
+                    <div class="answer-option" data-answer="d">
+                        <strong>D.</strong> 关联性检验
+                    </div>
+                    <div class="answer-feedback mt-3" style="display: none;"></div>
+                    <button class="btn btn-success btn-sm mt-3 check-answer">检查答案</button>
+                </div>
+
+                <div class="exercise-card" data-correct-answer="c" data-topic="logistic">
+                    <h5 class="card-title">题目 6: Sigmoid函数</h5>
+                    <p class="card-text">
+                        Sigmoid函数将任何实数映射到什么范围？
+                    </p>
+                    <div class="answer-option" data-answer="a">
+                        <strong>A.</strong> [-1, 1]
+                    </div>
+                    <div class="answer-option" data-answer="b">
+                        <strong>B.</strong> [0, ∞)
+                    </div>
+                    <div class="answer-option" data-answer="c">
+                        <strong>C.</strong> (0, 1)
+                    </div>
+                    <div class="answer-option" data-answer="d">
+                        <strong>D.</strong> (-∞, ∞)
+                    </div>
+                    <div class="answer-feedback mt-3" style="display: none;"></div>
+                    <button class="btn btn-success btn-sm mt-3 check-answer">检查答案</button>
+                </div>
+
+                <div class="exercise-card" data-correct-answer="a" data-topic="logistic">
+                    <h5 class="card-title">题目 7: 概率解释</h5>
+                    <p class="card-text">
+                        逻辑回归输出值为0.7时，如何解释？
+                    </p>
+                    <div class="answer-option" data-answer="a">
+                        <strong>A.</strong> 70%的概率属于正类
+                    </div>
+                    <div class="answer-option" data-answer="b">
+                        <strong>B.</strong> 预测准确率是70%
+                    </div>
+                    <div class="answer-option" data-answer="c">
+                        <strong>C.</strong> 模型置信度70%
+                    </div>
+                    <div class="answer-option" data-answer="d">
+                        <strong>A.</strong> 数据可信度70%
+                    </div>
+                    <div class="answer-feedback mt-3" style="display: none;"></div>
+                    <button class="btn btn-success btn-sm mt-3 check-answer">检查答案</button>
+                </div>
+
+                <div class="exercise-card" data-correct-answer="d" data-topic="logistic">
+                    <h5 class="card-title">题目 8: 决策边界</h5>
+                    <p class="card-text">
+                        在二分类问题中，通常使用的默认决策阈值是多少？
+                    </p>
+                    <div class="answer-option" data-answer="a">
+                        <strong>A.</strong> 0.1
+                    </div>
+                    <div class="answer-option" data-answer="b">
+                        <strong>B.</strong> 0.25
+                    </div>
+                    <div class="answer-option" data-answer="c">
+                        <strong>C.</strong> 0.75
+                    </div>
+                    <div class="answer-option" data-answer="d">
+                        <strong>D.</strong> 0.5
+                    </div>
+                    <div class="answer-feedback mt-3" style="display: none;"></div>
+                    <button class="btn btn-success btn-sm mt-3 check-answer">检查答案</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- X平方检验练习 -->
+        <section class="row mb-5">
+            <div class="col-lg-10 mx-auto">
+                <div class="d-flex align-items-center mb-4">
+                    <i class="bi bi-calculator text-warning me-3" style="font-size: 2rem;"></i>
+                    <div>
+                        <h2 class="h1 fw-bold mb-0">X平方检验练习</h2>
+                        <p class="text-muted mb-0">检验你对统计检验方法的理解</p>
+                    </div>
+                </div>
+
+                <div class="exercise-card" data-correct-answer="b" data-topic="chisquare">
+                    <h5 class="card-title">题目 9: X平方检验适用性</h5>
+                    <p class="card-text">
+                        X平方检验最适合分析什么类型的数据？
+                    </p>
+                    <div class="answer-option" data-answer="a">
+                        <strong>A.</strong> 连续型数值数据
+                    </div>
+                    <div class="answer-option" data-answer="b">
+                        <strong>B.</strong> 分类计数数据
+                    </div>
+                    <div class="answer-option" data-answer="c">
+                        <strong>C.</strong> 时间序列数据
+                    </div>
+                    <div class="answer-option" data-answer="d">
+                        <strong>D.</strong> 图像数据
+                    </div>
+                    <div class="answer-feedback mt-3" style="display: none;"></div>
+                    <button class="btn btn-warning btn-sm mt-3 check-answer">检查答案</button>
+                </div>
+
+                <div class="exercise-card" data-correct-answer="a" data-topic="chisquare">
+                    <h5 class="card-title">题目 10: 自由度计算</h5>
+                    <p class="card-text">
+                        对于一个3×4的列联表，X平方检验的自由度是多少？
+                    </p>
+                    <div class="answer-option" data-answer="a">
+                        <strong>A.</strong> 6
+                    </div>
+                    <div class="answer-option" data-answer="b">
+                        <strong>B.</strong> 12
+                    </div>
+                    <div class="answer-option" data-answer="c">
+                        <strong>C.</strong> 5
+                    </div>
+                    <div class="answer-option" data-answer="d">
+                        <strong>D.</strong> 7
+                    </div>
+                    <div class="answer-feedback mt-3" style="display: none;"></div>
+                    <button class="btn btn-warning btn-sm mt-3 check-answer">检查答案</button>
+                </div>
+
+                <div class="exercise-card" data-correct-answer="d" data-topic="chisquare">
+                    <h5 class="card-title">题目 11: 假设检验决策</h5>
+                    <p class="card-text">
+                        如果X平方检验的P值为0.03，显著性水平为0.05，应该如何决策？
+                    </p>
+                    <div class="answer-option" data-answer="a">
+                        <strong>A.</strong> 接受原假设
+                    </div>
+                    <div class="answer-option" data-answer="b">
+                        <strong>B.</strong> 需要更多数据
+                    </div>
+                    <div class="answer-option" data-answer="c">
+                        <strong>C.</strong> 重新设计实验
+                    </div>
+                    <div class="answer-option" data-answer="d">
+                        <strong>D.</strong> 拒绝原假设
+                    </div>
+                    <div class="answer-feedback mt-3" style="display: none;"></div>
+                    <button class="btn btn-warning btn-sm mt-3 check-answer">检查答案</button>
+                </div>
+
+                <div class="exercise-card" data-correct-answer="c" data-topic="chisquare">
+                    <h5 class="card-title">题目 12: 期望频数计算</h5>
+                    <p class="card-text">
+                        在X平方检验中，期望频数的作用是什么？
+                    </p>
+                    <div class="answer-option" data-answer="a">
+                        <strong>A.</strong> 表示实际观测值
+                    </div>
+                    <div class="answer-option" data-answer="b">
+                        <strong>B.</strong> 计算样本方差
+                    </div>
+                    <div class="answer-option" data-answer="c">
+                        <strong>C.</strong> 作为独立性的基准
+                    </div>
+                    <div class="answer-option" data-answer="d">
+                        <strong>D.</strong> 估计总体参数
+                    </div>
+                    <div class="answer-feedback mt-3" style="display: none;"></div>
+                    <button class="btn btn-warning btn-sm mt-3 check-answer">检查答案</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 综合应用 -->
+        <section class="row mb-5">
+            <div class="col-lg-10 mx-auto">
+                <div class="d-flex align-items-center mb-4">
+                    <i class="bi bi-diagram-3 text-info me-3" style="font-size: 2rem;"></i>
+                    <div>
+                        <h2 class="h1 fw-bold mb-0">综合应用题</h2>
+                        <p class="text-muted mb-0">结合三种算法选择合适的方法</p>
+                    </div>
+                </div>
+
+                <div class="exercise-card" data-correct-answer="b" data-topic="comprehensive">
+                    <h5 class="card-title">题目 13: 方法选择</h5>
+                    <p class="card-text">
+                        一个医疗机构想要根据病人的年龄、血压、血糖等指标预测其是否患有糖尿病，
+                        应该使用哪种统计方法？
+                    </p>
+                    <div class="answer-option" data-answer="a">
+                        <strong>A.</strong> 线性回归 - 因为涉及多个医学指标
+                    </div>
+                    <div class="answer-option" data-answer="b">
+                        <strong>B.</strong> 逻辑回归 - 因为是二元分类问题
+                    </div>
+                    <div class="answer-option" data-answer="c">
+                        <strong>C.</strong> X平方检验 - 因为是医学统计
+                    </div>
+                    <div class="answer-option" data-answer="d">
+                        <strong>D.</strong> 三种方法都可以
+                    </div>
+                    <div class="answer-feedback mt-3" style="display: none;"></div>
+                    <button class="btn btn-info btn-sm mt-3 check-answer">检查答案</button>
+                </div>
+
+                <div class="exercise-card" data-correct-answer="a" data-topic="comprehensive">
+                    <h5 class="card-title">题目 14: 数据分析场景</h5>
+                    <p class="card-text">
+                        教育研究者想要分析不同教学方法（传统教学、多媒体教学、互动教学）与学生
+                        成绩等级（优秀、良好、及格、不及格）之间是否存在关联，最合适的方法是？
+                    </p>
+                    <div class="answer-option" data-answer="a">
+                        <strong>A.</strong> X平方检验 - 检验分类变量的关联性
+                    </div>
+                    <div class="answer-option" data-answer="b">
+                        <strong>B.</strong> 线性回归 - 预测成绩分数
+                    </div>
+                    <div class="answer-option" data-answer="c">
+                        <strong>C.</strong> 逻辑回归 - 判断是否及格
+                    </div>
+                    <div class="answer-option" data-answer="d">
+                        <strong>D.</strong> 聚类分析 - 分组学生
+                    </div>
+                    <div class="answer-feedback mt-3" style="display: none;"></div>
+                    <button class="btn btn-info btn-sm mt-3 check-answer">检查答案</button>
+                </div>
+
+                <div class="exercise-card" data-correct-answer="c" data-topic="comprehensive">
+                    <h5 class="card-title">题目 15: 商业应用</h5>
+                    <p class="card-text">
+                        电商公司希望根据用户的浏览时长、购买历史、访问频率等连续性指标
+                        来预测用户未来的消费金额，应该使用什么方法？
+                    </p>
+                    <div class="answer-option" data-answer="a">
+                        <strong>A.</strong> 逻辑回归 - 因为涉及用户行为
+                    </div>
+                    <div class="answer-option" data-answer="b">
+                        <strong>B.</strong> X平方检验 - 因为是商业分析
+                    </div>
+                    <div class="answer-option" data-answer="c">
+                        <strong>C.</strong> 线性回归 - 预测连续的消费金额
+                    </div>
+                    <div class="answer-option" data-answer="d">
+                        <strong>D.</strong> 决策树 - 处理用户特征
+                    </div>
+                    <div class="answer-feedback mt-3" style="display: none;"></div>
+                    <button class="btn btn-info btn-sm mt-3 check-answer">检查答案</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 学习成果 -->
+        <section class="row mb-5">
+            <div class="col-lg-8 mx-auto">
+                <div class="card bg-success text-white border-0">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">
+                            <i class="bi bi-trophy me-2"></i>恭喜完成练习！
+                        </h5>
+                        <p class="card-text">
+                            你已经系统地学习了线性回归、逻辑回归和X平方检验的核心概念和应用方法。
+                        </p>
+                        <div class="mt-3">
+                            <button class="btn btn-light" onclick="resetProgress()">
+                                <i class="bi bi-arrow-clockwise me-2"></i>重新练习
+                            </button>
+                            <a href="comparison.html" class="btn btn-outline-light">
+                                <i class="bi bi-columns-gap me-2"></i>查看算法对比
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>统计学习中心</h5>
+                    <p class="text-muted">让统计学变得简单易懂</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="text-muted mb-0">
+                        <i class="bi bi-github me-2"></i>
+                        开源学习平台
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts.js"></script>
+    
+    <style>
+        .practice-stat h3 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .practice-stat p {
+            color: #6c757d;
+            font-weight: 500;
+        }
+        
+        .exercise-card {
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .exercise-card:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-color: #dee2e6;
+        }
+        
+        .answer-option {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .answer-option:hover {
+            background: #f8f9fa;
+            border-color: #007bff;
+        }
+        
+        .answer-option.selected {
+            background: #e7f3ff;
+            border-color: #0066cc;
+        }
+        
+        .answer-option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+        
+        .answer-option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+    </style>
+    
+    <script>
+        // 进度跟踪
+        let completedExercises = loadFromLocalStorage('completedExercises', []);
+        const totalExercises = document.querySelectorAll('.exercise-card').length;
+        
+        // 更新进度显示
+        function updateProgress() {
+            const completedCount = completedExercises.length;
+            const progressPercent = Math.round((completedCount / totalExercises) * 100);
+            
+            document.getElementById('completed-count').textContent = completedCount;
+            document.getElementById('progress-percent').textContent = progressPercent + '%';
+            document.getElementById('progress-bar').style.width = progressPercent + '%';
+        }
+        
+        // 检查答案函数（重写以支持进度跟踪）
+        function checkAnswer(exercise, options) {
+            const selected = exercise.querySelector('.answer-option.selected');
+            const correctAnswer = exercise.dataset.correctAnswer;
+            const exerciseId = Array.from(document.querySelectorAll('.exercise-card')).indexOf(exercise);
+            
+            if (!selected) {
+                showMessage('请先选择一个答案', 'warning');
+                return;
+            }
+            
+            const isCorrect = selected.dataset.answer === correctAnswer;
+            
+            options.forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+                if (option.dataset.answer === correctAnswer) {
+                    option.classList.add('correct');
+                } else if (option.classList.contains('selected') && !isCorrect) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            const feedback = exercise.querySelector('.answer-feedback');
+            if (feedback) {
+                feedback.innerHTML = isCorrect ? 
+                    '<div class="alert alert-success"><i class="bi bi-check-circle me-2"></i>回答正确！</div>' : 
+                    '<div class="alert alert-danger"><i class="bi bi-x-circle me-2"></i>回答错误，请查看正确答案。</div>';
+                feedback.style.display = 'block';
+            }
+            
+            // 更新进度
+            if (isCorrect && !completedExercises.includes(exerciseId)) {
+                completedExercises.push(exerciseId);
+                saveToLocalStorage('completedExercises', completedExercises);
+                updateProgress();
+                
+                // 显示完成提示
+                if (completedExercises.length === totalExercises) {
+                    showMessage('🎉 恭喜你完成了所有练习！', 'success');
+                }
+            }
+        }
+        
+        // 重置进度
+        function resetProgress() {
+            completedExercises = [];
+            saveToLocalStorage('completedExercises', completedExercises);
+            updateProgress();
+            
+            // 重置所有练习状态
+            document.querySelectorAll('.exercise-card').forEach(card => {
+                card.querySelectorAll('.answer-option').forEach(option => {
+                    option.classList.remove('selected', 'correct', 'incorrect');
+                });
+                const feedback = card.querySelector('.answer-feedback');
+                if (feedback) {
+                    feedback.style.display = 'none';
+                }
+            });
+            
+            showMessage('进度已重置，可以重新开始练习', 'info');
+        }
+        
+        // 初始化进度
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgress();
+            
+            // 标记已完成的练习
+            completedExercises.forEach(exerciseId => {
+                const exercise = document.querySelectorAll('.exercise-card')[exerciseId];
+                if (exercise) {
+                    exercise.style.borderLeft = '4px solid #28a745';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

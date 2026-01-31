@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>逻辑回归 - 统计学习中心</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-graph-up me-2"></i>统计学习中心
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">首页</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown">
+                            算法学习
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="linear-regression.html">线性回归</a></li>
+                            <li><a class="dropdown-item active" href="logistic-regression.html">逻辑回归</a></li>
+                            <li><a class="dropdown-item" href="chi-square.html">X平方检验</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="comparison.html">算法对比</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="practice.html">实践练习</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="algorithm-header logistic-gradient">
+        <div class="container text-center text-white">
+            <div class="row align-items-center">
+                <div class="col-lg-8 mx-auto">
+                    <h1 class="display-4 fw-bold mb-4">
+                        <i class="bi bi-toggle-on me-3"></i>逻辑回归
+                    </h1>
+                    <p class="lead mb-4">
+                        机器学习的基石，解决二分类问题的强大工具
+                    </p>
+                    <div class="d-flex gap-3 justify-content-center">
+                        <span class="badge bg-white text-primary fs-6">
+                            <i class="bi bi-tags me-1"></i>分类问题
+                        </span>
+                        <span class="badge bg-white text-primary fs-6">
+                            <i class="bi bi-shuffle me-1"></i>概率预测
+                        </span>
+                        <span class="badge bg-white text-primary fs-6">
+                            <i class="bi bi-check-circle me-1"></i>二分类
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container my-5">
+        <!-- 快速导航 -->
+        <section class="row mb-5">
+            <div class="col-lg-9 mx-auto">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">快速导航</h5>
+                        <nav class="nav nav-pills flex-column flex-md-row">
+                            <a class="nav-link active" href="#overview">基本概念</a>
+                            <a class="nav-link" href="#mathematical">数学原理</a>
+                            <a class="nav-link" href="#vs-linear">与线性回归区别</a>
+                            <a class="nav-link" href="#applications">应用场景</a>
+                            <a class="nav-link" href="#demo">交互演示</a>
+                            <a class="nav-link" href="#exercise">练习题</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 基本概念 -->
+        <section id="overview" class="row mb-5">
+            <div class="col-lg-8 mx-auto">
+                <div class="mb-4">
+                    <h2 class="h1 fw-bold mb-4">
+                        <i class="bi bi-book me-2 text-success"></i>什么是逻辑回归？
+                    </h2>
+                    <div class="alert alert-success">
+                        <i class="bi bi-info-circle me-2"></i>
+                        <strong>定义：</strong>逻辑回归是一种用于<span class="highlight">二分类</span>问题的统计学习方法，它预测的是事件发生的概率，而不是具体的数值。
+                    </div>
+                </div>
+
+                <div class="row g-4 mb-4">
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="bi bi-bullseye text-success me-2"></i>目标
+                                </h5>
+                                <p class="card-text">
+                                    预测二元结果，输出事件发生的概率
+                                </p>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>垃圾邮件识别</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>疾病诊断</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>客户流失预测</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <i class="bi bi-lightning text-warning me-2"></i>特点
+                                </h5>
+                                <p class="card-text">
+                                    输出概率值，可解释性强，应用广泛
+                                </p>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>概率解释直观</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>算法简单高效</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>理论基础扎实</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-success">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="bi bi-lightbulb text-warning me-2"></i>核心思想
+                        </h5>
+                        <p class="card-text">
+                            逻辑回归通过<span class="highlight">Sigmoid函数</span>将线性回归的输出映射到(0,1)区间，
+                            从而得到事件发生的概率。当概率大于阈值(通常是0.5)时，判定为正类；否则为负类。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 数学原理 -->
+        <section id="mathematical" class="row mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="h1 fw-bold mb-4">
+                    <i class="bi bi-calculator me-2 text-success"></i>数学原理
+                </h2>
+
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">Sigmoid函数</h5>
+                        <p class="card-text">逻辑回归的核心是Sigmoid函数，它将任何实数映射到(0,1)区间：</p>
+                        <div class="formula-box">
+                            σ(z) = 1 / (1 + e⁻ᶻ)
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-4 text-center">
+                                <strong>当 z → ∞</strong><br>
+                                <small class="text-muted">σ(z) → 1</small>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <strong>当 z = 0</strong><br>
+                                <small class="text-muted">σ(z) = 0.5</small>
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <strong>当 z → -∞</strong><br>
+                                <small class="text-muted">σ(z) → 0</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">逻辑回归模型</h5>
+                        <div class="formula-box mb-3">
+                            P(y=1|x) = σ(β₀ + β₁x₁ + β₂x₂ + ... + βₙxₙ)
+                        </div>
+                        <p class="card-text">其中：</p>
+                        <ul class="list-unstyled">
+                            <li><strong>P(y=1|x)</strong> - 给定特征x，y=1的概率</li>
+                            <li><strong>σ()</strong> - Sigmoid函数</li>
+                            <li><strong>β₀, β₁, ..., βₙ</strong> - 模型参数</li>
+                            <li><strong>x₁, x₂, ..., xₙ</strong> - 输入特征</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">决策边界</h5>
+                        <p class="card-text">
+                            当P(y=1|x) = 0.5时，我们得到决策边界：
+                        </p>
+                        <div class="formula-box">
+                            β₀ + β₁x₁ + β₂x₂ + ... + βₙxₙ = 0
+                        </div>
+                        <p class="card-text mt-3">
+                            决策边界将特征空间划分为两个区域，一侧预测为正类，另一侧预测为负类。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">损失函数</h5>
+                        <p class="card-text">
+                            逻辑回归使用对数损失函数(Log Loss)：
+                        </p>
+                        <div class="formula-box">
+                            L = -Σ[yᵢ log(pᵢ) + (1-yᵢ) log(1-pᵢ)]
+                        </div>
+                        <p class="card-text mt-3">
+                            通过梯度下降等优化算法最小化损失函数来学习模型参数。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 与线性回归区别 -->
+        <section id="vs-linear" class="row mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="h1 fw-bold mb-4">
+                    <i class="bi bi-arrows-angle-expand me-2 text-success"></i>与线性回归的区别
+                </h2>
+
+                <div class="comparison-table">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>对比维度</th>
+                                <th>线性回归</th>
+                                <th>逻辑回归</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>问题类型</strong></td>
+                                <td><span class="badge bg-primary">回归</span></td>
+                                <td><span class="badge bg-success">分类</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>输出范围</strong></td>
+                                <td>(-∞, +∞)</td>
+                                <td>(0, 1)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>激活函数</strong></td>
+                                <td>无（恒等函数）</td>
+                                <td>Sigmoid函数</td>
+                            </tr>
+                            <tr>
+                                <td><strong>损失函数</strong></td>
+                                <td>均方误差(MSE)</td>
+                                <td>对数损失(Log Loss)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>应用场景</strong></td>
+                                <td>房价预测、销量预测</td>
+                                <td>垃圾邮件检测、疾病诊断</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="alert alert-info mt-4">
+                    <i class="bi bi-info-circle me-2"></i>
+                    <strong>关键区别：</strong>线性回归预测连续值，而逻辑回归预测概率。尽管名字叫"回归"，逻辑回归实际上用于分类问题。
+                </div>
+            </div>
+        </section>
+
+        <!-- 应用场景 -->
+        <section id="applications" class="row mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="h1 fw-bold mb-4">
+                    <i class="bi bi-diagram-3 me-2 text-success"></i>应用场景
+                </h2>
+
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="feature-icon me-3" style="font-size: 2rem;">
+                                        <i class="bi bi-envelope-x"></i>
+                                    </div>
+                                    <h5 class="card-title mb-0">垃圾邮件检测</h5>
+                                </div>
+                                <p class="card-text">
+                                    根据邮件内容、发件人等特征判断是否为垃圾邮件
+                                </p>
+                                <div class="small text-muted">
+                                    <i class="bi bi-tag me-1"></i>特征：关键词频率、发件人信誉
+                                    <br>
+                                    <i class="bi bi-bullseye me-1"></i>目标：是否垃圾邮件(是/否)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="feature-icon me-3" style="font-size: 2rem;">
+                                        <i class="bi bi-heart-pulse"></i>
+                                    </div>
+                                    <h5 class="card-title mb-0">医疗诊断</h5>
+                                </div>
+                                <p class="card-text">
+                                    基于症状和检查结果预测疾病发生的概率
+                                </p>
+                                <div class="small text-muted">
+                                    <i class="bi bi-tag me-1"></i>特征：年龄、症状、化验结果
+                                    <br>
+                                    <i class="bi bi-bullseye me-1"></i>目标：是否患病(是/否)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="feature-icon me-3" style="font-size: 2rem;">
+                                        <i class="bi bi-credit-card"></i>
+                                    </div>
+                                    <h5 class="card-title mb-0">信用评分</h5>
+                                </div>
+                                <p class="card-text">
+                                    根据财务历史预测客户违约风险
+                                </p>
+                                <div class="small text-muted">
+                                    <i class="bi bi-tag me-1"></i>特征：收入、债务、信用历史
+                                    <br>
+                                    <i class="bi bi-bullseye me-1"></i>目标：是否违约(是/否)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="feature-icon me-3" style="font-size: 2rem;">
+                                        <i class="bi bi-people"></i>
+                                    </div>
+                                    <h5 class="card-title mb-0">客户流失</h5>
+                                </div>
+                                <p class="card-text">
+                                    预测客户是否会停止使用服务或产品
+                                </p>
+                                <div class="small text-muted">
+                                    <i class="bi bi-tag me-1"></i>特征：使用频率、满意度、消费金额
+                                    <br>
+                                    <i class="bi bi-bullseye me-1"></i>目标：是否流失(是/否)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 交互演示 -->
+        <section id="demo" class="row mb-5">
+            <div class="col-lg-10 mx-auto">
+                <h2 class="h1 fw-bold mb-4">
+                    <i class="bi bi-cursor me-2 text-success"></i>交互演示
+                </h2>
+
+                <div class="card border-0 shadow-sm" id="logistic-regression-demo">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">逻辑回归预测演示</h5>
+                        <p class="text-muted">
+                            输入不同的特征值，观察逻辑回归如何计算概率并做出分类决策
+                        </p>
+
+                        <div class="row mb-4">
+                            <div class="col-md-8">
+                                <div class="control-panel">
+                                    <h6 class="mb-3">输入特征值</h6>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label for="feature1" class="form-label">
+                                                <i class="bi bi-1-circle me-1"></i>学习时间(小时/天)
+                                            </label>
+                                            <input type="range" class="form-range" id="feature1" min="0" max="10" step="0.5" value="5">
+                                            <div class="text-center mt-1">
+                                                <span id="feature1-value">5.0</span> 小时
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="feature2" class="form-label">
+                                                <i class="bi bi-2-circle me-1"></i>参与度评分(1-10)
+                                            </label>
+                                            <input type="range" class="form-range" id="feature2" min="1" max="10" step="1" value="7">
+                                            <div class="text-center mt-1">
+                                                <span id="feature2-value">7</span> 分
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="feature3" class="form-label">
+                                                <i class="bi bi-3-circle me-1"></i>基础分数(0-100)
+                                            </label>
+                                            <input type="range" class="form-range" id="feature3" min="0" max="100" step="5" value="75">
+                                            <div class="text-center mt-1">
+                                                <span id="feature3-value">75</span> 分
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="feature4" class="form-label">
+                                                <i class="bi bi-4-circle me-1"></i>出勤率(%)
+                                            </label>
+                                            <input type="range" class="form-range" id="feature4" min="0" max="100" step="5" value="90">
+                                            <div class="text-center mt-1">
+                                                <span id="feature4-value">90</span>%
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center mt-4">
+                                        <button id="predict-btn" class="btn btn-success btn-lg">
+                                            <i class="bi bi-calculator me-2"></i>预测考试通过概率
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="result-panel">
+                                    <h6 class="mb-3">预测结果</h6>
+                                    <div id="prediction-result">
+                                        <div class="text-center text-muted">
+                                            <i class="bi bi-arrow-left-circle" style="font-size: 3rem;"></i>
+                                            <p class="mt-2">请输入特征值并点击预测</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle me-2"></i>
+                            <strong>说明：</strong>这是一个简化的学生考试通过预测模型。逻辑回归会计算每个特征的影响权重，最终输出通过考试的概率。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 练习题 -->
+        <section id="exercise" class="row mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="h1 fw-bold mb-4">
+                    <i class="bi bi-pencil-square me-2 text-success"></i>练习题
+                </h2>
+
+                <div class="exercise-card" data-correct-answer="b">
+                    <h5 class="card-title">题目 1: 逻辑回归的本质</h5>
+                    <p class="card-text">
+                        逻辑回归主要用于解决什么类型的问题？
+                    </p>
+                    <div class="answer-option" data-answer="a">
+                        <strong>A.</strong> 预测房价等连续数值
+                    </div>
+                    <div class="answer-option" data-answer="b">
+                        <strong>B.</strong> 预测二元分类结果
+                    </div>
+                    <div class="answer-option" data-answer="c">
+                        <strong>C.</strong> 聚类分析
+                    </div>
+                    <div class="answer-option" data-answer="d">
+                        <strong>D.</strong> 时间序列预测
+                    </div>
+                    <div class="answer-feedback mt-3" style="display: none;"></div>
+                    <button class="btn btn-success btn-sm mt-3 check-answer">检查答案</button>
+                </div>
+
+                <div class="exercise-card" data-correct-answer="c">
+                    <h5 class="card-title">题目 2: Sigmoid函数特性</h5>
+                    <p class="card-text">
+                        Sigmoid函数的输出范围是什么？
+                    </p>
+                    <div class="answer-option" data-answer="a">
+                        <strong>A.</strong> (-∞, +∞)
+                    </div>
+                    <div class="answer-option" data-answer="b">
+                        <strong>B.</strong> [0, 1]
+                    </div>
+                    <div class="answer-option" data-answer="c">
+                        <strong>C.</strong> (0, 1)
+                    </div>
+                    <div class="answer-option" data-answer="d">
+                        <strong>D.</strong> [-1, 1]
+                    </div>
+                    <div class="answer-feedback mt-3" style="display: none;"></div>
+                    <button class="btn btn-success btn-sm mt-3 check-answer">检查答案</button>
+                </div>
+
+                <div class="exercise-card" data-correct-answer="d">
+                    <h5 class="card-title">题目 3: 决策边界</h5>
+                    <p class="card-text">
+                        在二分类逻辑回归中，通常使用哪个概率值作为决策阈值？
+                    </p>
+                    <div class="answer-option" data-answer="a">
+                        <strong>A.</strong> 0.1
+                    </div>
+                    <div class="answer-option" data-answer="b">
+                        <strong>B.</strong> 0.25
+                    </div>
+                    <div class="answer-option" data-answer="c">
+                        <strong>C.</strong> 0.75
+                    </div>
+                    <div class="answer-option" data-answer="d">
+                        <strong>D.</strong> 0.5
+                    </div>
+                    <div class="answer-feedback mt-3" style="display: none;"></div>
+                    <button class="btn btn-success btn-sm mt-3 check-answer">检查答案</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 学习总结 -->
+        <section class="row mb-5">
+            <div class="col-lg-8 mx-auto">
+                <div class="card bg-success text-white border-0">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="bi bi-lightbulb me-2"></i>本节要点总结
+                        </h5>
+                        <ul class="mb-0">
+                            <li>逻辑回归用于二分类问题，输出事件发生的概率</li>
+                            <li>通过Sigmoid函数将线性组合映射到(0,1)区间</li>
+                            <li>使用对数损失函数进行参数优化</li>
+                            <li>决策边界将特征空间划分为两个类别</li>
+                            <li>广泛应用于医疗诊断、垃圾邮件检测等领域</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 下一步 -->
+        <section class="text-center mb-5">
+            <div class="mb-4">
+                <h3 class="h1 fw-bold mb-3">继续学习</h3>
+                <p class="lead text-muted">你已经掌握了逻辑回归的基础知识，继续探索其他统计方法</p>
+            </div>
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+                <a href="chi-square.html" class="btn btn-warning btn-lg">
+                    <i class="bi bi-calculator me-2"></i>学习X平方检验
+                </a>
+                <a href="linear-regression.html" class="btn btn-primary btn-lg">
+                    <i class="bi bi-graph-up-arrow me-2"></i>复习线性回归
+                </a>
+                <a href="comparison.html" class="btn btn-outline-success btn-lg">
+                    <i class="bi bi-columns-gap me-2"></i>算法对比
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>统计学习中心</h5>
+                    <p class="text-muted">让统计学变得简单易懂</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="text-muted mb-0">
+                        <i class="bi bi-github me-2"></i>
+                        开源学习平台
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts.js"></script>
+    <script>
+        // 逻辑回归交互演示
+        document.addEventListener('DOMContentLoaded', function() {
+            // 更新滑块显示值
+            const sliders = ['feature1', 'feature2', 'feature3', 'feature4'];
+            sliders.forEach(sliderId => {
+                const slider = document.getElementById(sliderId);
+                const valueDisplay = document.getElementById(sliderId + '-value');
+                
+                if (slider && valueDisplay) {
+                    slider.addEventListener('input', function() {
+                        valueDisplay.textContent = slider.value;
+                    });
+                }
+            });
+            
+            // 预测按钮事件
+            const predictBtn = document.getElementById('predict-btn');
+            if (predictBtn) {
+                predictBtn.addEventListener('click', function() {
+                    const features = {
+                        feature1: parseFloat(document.getElementById('feature1').value),
+                        feature2: parseFloat(document.getElementById('feature2').value),
+                        feature3: parseFloat(document.getElementById('feature3').value),
+                        feature4: parseFloat(document.getElementById('feature4').value)
+                    };
+                    
+                    const prediction = calculateLogisticRegression(features);
+                    displayPrediction(prediction, document.getElementById('prediction-result'));
+                });
+            }
+        });
+    </script>
+</body>
+</html>
